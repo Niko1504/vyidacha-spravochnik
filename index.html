@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Выдача в Россию — справочник по странам</title>
+<meta name="description" content="Внутренний справочник проекта: какие страны имеют с Россией договор о выдаче, какие выдают по конвенциям, у кого договоров нет. По перечню Минюста, сверено 22.11.2026.">
+<link rel="stylesheet" href="fonts/prata.css">
+<link rel="stylesheet" href="fonts/golos-text.css">
+<link rel="stylesheet" href="fonts/jetbrains-mono.css">
+<style>
+/* ── Система ──────────────────────────────────────────────
+   Категория: государственный реестр / юридический регистр.
+   Грунт: тёплая бумага (светлая) и тёплый уголь (тёмная).
+   Акцент: гранат — тяжесть документа, не «SaaS-синий».
+   Тип: Prata (заголовки) · Golos Text (текст) · JetBrains Mono (даты).
+   Радиус: 4px — характер бланка, не карточки маркетплейса. */
+:root{
+  --bg:#F6F4EF; --surface:#FDFCF9; --ink:#1C1917; --muted:#5E564F;
+  --line:#E3DDD2; --line-soft:#EDE9E0;
+  --accent:#7A2230; --accent-ink:#FDFCF9;
+  --s-force:#1B7A4B; --s-force-bg:#E7F2EB;
+  --s-pend:#8A6512; --s-pend-bg:#F4ECDA;
+  --s-cis:#2B5FA8;  --s-cis-bg:#E8EEF7;
+  --s-mla:#545E6B;  --s-mla-bg:#EAEDF0;
+  --s-none:#A03524; --s-none-bg:#F6E8E4;
+  --shadow:0 1px 2px rgba(28,25,23,.05);
+}
+html[data-theme="dark"]{
+  --bg:#161311; --surface:#1E1A17; --ink:#ECE6DF; --muted:#9C948B;
+  --line:#332D28; --line-soft:#282320;
+  --accent:#C98087; --accent-ink:#1E1215;
+  --s-force:#7CC79E; --s-force-bg:#1D2B23;
+  --s-pend:#D3B26A;  --s-pend-bg:#2B2519;
+  --s-cis:#8AA9D4;   --s-cis-bg:#1C2531;
+  --s-mla:#A7AFBA;   --s-mla-bg:#24262A;
+  --s-none:#D68A7C;  --s-none-bg:#2E1F1B;
+  --shadow:0 1px 2px rgba(0,0,0,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink);
+  font:400 16px/1.55 "Golos Text",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"JetBrains Mono",monospace}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+
+/* header */
+header{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.hrow{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{font-family:"Prata",serif;font-size:17px;letter-spacing:.01em;color:var(--ink);text-decoration:none}
+.brand span{color:var(--accent)}
+.hright{display:flex;align-items:center;gap:14px}
+.verify{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--muted)}
+#themeBtn{
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  width:34px;height:34px;border-radius:4px;cursor:pointer;font-size:15px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+}
+#themeBtn:hover{border-color:var(--accent)}
+
+/* hero */
+.hero{padding:52px 0 30px;border-bottom:1px solid var(--line)}
+h1{
+  font-family:"Prata",serif;font-weight:400;
+  font-size:clamp(30px,5vw,46px);line-height:1.14;letter-spacing:-.01em;
+  max-width:640px;
+}
+h1 em{font-style:normal;color:var(--accent)}
+.lead{max-width:620px;margin-top:16px;font-size:16.5px;color:var(--muted)}
+.lead b{color:var(--ink);font-weight:600}
+
+/* stat chips = фильтры */
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:26px}
+.chip{
+  display:flex;align-items:baseline;gap:8px;
+  border:1px solid var(--line);background:var(--surface);
+  border-radius:4px;padding:7px 10px;cursor:pointer;
+  font:inherit;font-size:13px;color:var(--muted);
+  transition:border-color .15s;
+}
+.chip:hover{border-color:var(--accent)}
+.chip b{font-family:"Prata",serif;font-size:18px;font-weight:400;color:var(--ink);line-height:1}
+.chip.on{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.chip.on b{color:var(--accent-ink)}
+.chip .dot{width:8px;height:8px;border-radius:2px;align-self:center}
+.dot.f{background:var(--s-force)} .dot.p{background:var(--s-pend)}
+.dot.c{background:var(--s-cis)} .dot.m{background:var(--s-mla)} .dot.n{background:var(--s-none)}
+
+/* search + list */
+.tool{padding:26px 0 8px}
+.search{
+  width:100%;padding:13px 16px;font:inherit;font-size:15.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:4px;outline:none;
+  box-shadow:var(--shadow);
+}
+.search:focus{border-color:var(--accent)}
+.search::placeholder{color:var(--muted)}
+.count{margin:10px 2px 0;font-size:12.5px;color:var(--muted)}
+.count b{color:var(--ink)}
+
+/* список стран */
+#list{list-style:none;margin-top:14px;border:1px solid var(--line);border-radius:4px;background:var(--surface);overflow:hidden}
+#list li{display:grid;grid-template-columns:190px 205px 1fr;gap:6px 14px;align-items:baseline;padding:13px 18px;border-top:1px solid var(--line-soft)}
+#list li .cnote{grid-column:1/-1;margin-top:2px}
+#list li:first-child{border-top:none}
+#list li:hover{background:color-mix(in srgb, var(--line-soft) 55%, transparent)}
+.cname{font-weight:600;font-size:15.5px}
+.badge{
+  display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.02em;
+  padding:3px 9px;border-radius:3px;white-space:nowrap;
+}
+.b-f{color:var(--s-force);background:var(--s-force-bg)}
+.b-p{color:var(--s-pend);background:var(--s-pend-bg)}
+.b-c{color:var(--s-cis);background:var(--s-cis-bg)}
+.b-m{color:var(--s-mla);background:var(--s-mla-bg)}
+.b-n{color:var(--s-none);background:var(--s-none-bg)}
+.cdates{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--muted);white-space:nowrap;justify-self:end;text-align:right}
+.cnote{font-size:13px;color:var(--muted)}
+.empty{padding:26px 18px;text-align:center;color:var(--muted);font-size:14px;display:none}
+
+/* секции */
+section{padding:44px 0 8px}
+h2{font-family:"Prata",serif;font-weight:400;font-size:24px;line-height:1.25;margin-bottom:18px}
+h2::after{content:"";display:block;width:44px;height:2px;background:var(--accent);margin-top:10px}
+.leg{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.leg>div{border:1px solid var(--line);border-radius:4px;background:var(--surface);padding:13px 14px}
+.leg b{display:block;font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;margin-bottom:6px}
+.leg p{font-size:13.2px;color:var(--muted);line-height:1.45}
+.lf b{color:var(--s-force)} .lp b{color:var(--s-pend)} .lc b{color:var(--s-cis)} .lm b{color:var(--s-mla)} .ln b{color:var(--s-none)}
+
+.cases{display:grid;grid-template-columns:1fr;gap:10px}
+.case{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:4px;background:var(--surface);padding:14px 18px}
+.case .when{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--accent);letter-spacing:.03em}
+.case h3{font-size:15.5px;font-weight:600;margin:4px 0 5px}
+.case p{font-size:13.8px;color:var(--muted)}
+
+.memo{list-style:none}
+.memo li{
+  padding:11px 0 11px 26px;border-bottom:1px solid var(--line-soft);
+  position:relative;font-size:14.5px;color:var(--ink);
+}
+.memo li::before{content:"§";position:absolute;left:2px;top:11px;color:var(--accent);font-family:"Prata",serif}
+.memo b{font-weight:600}
+
+footer{margin-top:52px;border-top:1px solid var(--line);padding:26px 0 40px}
+footer p{font-size:12.5px;color:var(--muted);max-width:640px}
+footer a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+footer .fine{margin-top:8px;font-size:11.5px}
+
+/* мобильная версия */
+@media (max-width:680px){
+  .hero{padding:38px 0 24px}
+  .chip{padding:8px 11px;font-size:12.5px}
+  .chip b{font-size:18px}
+  .verify{display:none}
+  #list li{grid-template-columns:1fr;gap:6px;padding:12px 14px}
+  .cdates{order:4;justify-self:start;text-align:left}
+  .leg{grid-template-columns:1fr 1fr}
+  .leg>div:nth-child(5){grid-column:1/-1}
+}
+@media (max-width:390px){
+  .leg{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hrow">
+    <a class="brand" href="#">Выдача <span>·</span> Россия</a>
+    <div class="hright">
+      <span class="verify">сверено 22.11.2026</span>
+      <button id="themeBtn" type="button" aria-label="Сменить тему">☾</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Какие страны <em>выдают</em> в Россию</h1>
+    <p class="lead">Статус каждой страны — по официальному перечню международных договоров <b>Минюста России</b>, дополнен проверенной практикой 2026 года. Введите страну — увидите её статус и даты.</p>
+    <div class="chips" id="chips" role="group" aria-label="Фильтр по статусу"></div>
+  </div>
+
+  <div class="tool">
+    <input id="q" class="search" type="search" placeholder="Введите страну: Таиланд, ОАЭ, Грузия…" autocomplete="off">
+    <p class="count" id="count"></p>
+    <ul id="list"></ul>
+    <p class="empty" id="empty">Ничего не найдено. Проверьте написание — или страна не входит ни в одну группу перечня.</p>
+  </div>
+
+  <section id="legenda">
+    <h2>Как читать статусы</h2>
+    <div class="leg">
+      <div class="lf"><b>Договор в силе</b><p>Двусторонний договор о выдаче действует. Запрос возможен по делам от 1 года лишения свободы.</p></div>
+      <div class="lp"><b>Подписан, не в силе</b><p>Выдачи по договору пока нет — он не вступил в силу.</p></div>
+      <div class="lc"><b>Конвенция СНГ</b><p>Отдельного договора нет; выдача по Минской конвенции 1993 года и Кишинёвской 2002.</p></div>
+      <div class="lm"><b>Правовая помощь</b><p>Договор о правовой помощи. Выдача — только если в тексте есть раздел о выдаче.</p></div>
+      <div class="ln"><b>Договоров нет</b><p>В перечне Минюста ни договора о выдаче, ни договора о правовой помощи.</p></div>
+    </div>
+  </section>
+
+  <section id="practice">
+    <h2>Практика 2026 года</h2>
+    <div class="cases">
+      <div class="case"><span class="when">Таиланд · 21.11.2026</span>
+        <h3>Пхукет: пара с паспортами Вануату</h3>
+        <p>Задержаны по делу о мошенничестве на 149,9 млн ₽; имена сменили, гражданство Вануату получили. Визы аннулированы, готовится депортация. Договор о выдаче действует с 19.07.2025.</p></div>
+      <div class="case"><span class="when">Грузия · июль — октябрь 2026</span>
+        <h3>Три выдачи по запросам Генпрокуратуры</h3>
+        <p>Дела о наркотиках и преступном сообществе. Двустороннего договора нет — основание конвенции. Запись «договоров нет» не означает безопасность.</p></div>
+      <div class="case"><span class="when">Грузия · сентябрь 2026</span>
+        <h3>Выдача остановлена мерой ООН</h3>
+        <p>Суд Тбилиси разрешил выдачу экс-помощника Фургала, затем Комитет ООН по правам человека вынес обеспечительную меру о запрете. Процедуру можно остановить на международном уровне — но это исключение, а не правило.</p></div>
+    </div>
+  </section>
+
+  <section id="memo">
+    <h2>Что важно помнить</h2>
+    <ul class="memo">
+      <li><b>Договор — не единственный путь.</b> Депортация не требует договора: достаточно аннулировать визу или основание пребывания. На практике этот путь быстрее выдачи.</li>
+      <li><b>Европейская конвенция 1957 года</b> числится в перечне, но после прекращения членства России в Совете Европы 16.03.2022 страны Совета её не применяют.</li>
+      <li><b>Своих граждан стороны не выдают.</b> Запрет на выдачу граждан России — конституционный; договор не создаёт обязательства и для граждан запрашиваемой страны.</li>
+      <li><b>Минюст ведёт регистр договоров, а не статистику.</b> Решение принимает суд запрашиваемой страны; основания отказа — политическое преступление, дискриминация, срок давности, уже вынесенный приговор.</li>
+      <li><b>Для семьи без уголовного дела</b> важен не паспорт, а страна резидентства: договор о выдаче, конвенции и практика депортации проверяются до выбора.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Источник: <a href="https://minjust.gov.ru/ru/pages/perechen-mezhdunarodnyh/" rel="noopener">перечень международных договоров РФ</a>, Минюст России. Даты вступления в силу сверены по карточкам договоров МИД России. Практика — по сообщениям Генпрокуратуры России и решениям судов, 2026 год.</p>
+    <p class="fine">Внутренний справочник проекта «ВНЖ» · не для публикации · страница закрыта от индексации</p>
+  </footer>
+</div>
+
+<script>
+const DATA=[
+ // Договор о выдаче в силе — 20
+ {n:"Алжир",s:"f",d:"15.07.2023 → 16.09.2024"},
+ {n:"Ангола",s:"f",d:"31.10.2006 → 18.09.2008"},
+ {n:"Аргентина",s:"f",d:"12.07.2014 → 09.03.2018"},
+ {n:"Бахрейн",s:"f",d:"27.05.2016 → 22.07.2018"},
+ {n:"Бразилия",s:"f",d:"14.01.2002 → 01.01.2007"},
+ {n:"Индия",s:"f",d:"21.12.1998 → 30.05.2000"},
+ {n:"Индонезия",s:"f",d:"31.03.2023 → 22.03.2026",t:"новейший: вступил в силу в 2026 году; до этого действовала только правовая помощь с 2021"},
+ {n:"КНДР",s:"f",d:"17.11.2015 → 24.03.2017"},
+ {n:"Камерун",s:"f",d:"28.05.2015 → 01.10.2018"},
+ {n:"Китай",s:"f",d:"26.06.1995 → 10.01.1997"},
+ {n:"Лаос",s:"f",d:"28.05.2015 → 12.02.2018"},
+ {n:"Марокко",s:"f",d:"15.03.2016 → 25.09.2019"},
+ {n:"ОАЭ",s:"f",d:"25.11.2014 → 20.04.2016"},
+ {n:"Панама",s:"f",d:"29.04.2015 → 19.08.2016"},
+ {n:"Сирия",s:"f",d:"29.06.2022 → 05.06.2023"},
+ {n:"Таиланд",s:"f",d:"23.10.2024 → 19.07.2025",t:"свежайший договор; применяется и к делам, начатым до вступления в силу"},
+ {n:"Турция",s:"f",d:"01.12.2014 → 21.07.2017",t:"единый договор: правовая помощь и выдача"},
+ {n:"Филиппины",s:"f",d:"13.11.2017 → 12.03.2020"},
+ {n:"Шри-Ланка",s:"f",d:"28.05.2015 → 06.11.2017"},
+ {n:"Эквадор",s:"f",d:"07.08.2019 → 13.08.2021"},
+ // Подписан, не в силе — 6
+ {n:"Джибути",s:"p",d:"подписан 27.08.2025"},
+ {n:"Зимбабве",s:"p",d:"подписан 15.01.2019"},
+ {n:"Кувейт",s:"p",d:"подписан 28.06.2024"},
+ {n:"Мозамбик",s:"p",d:"подписан 20.05.2025"},
+ {n:"Никарагуа",s:"p",d:"подписан 05.06.2026"},
+ {n:"ЦАР",s:"p",d:"подписан 25.06.2026"},
+ // Конвенции СНГ — 10
+ {n:"Азербайджан",s:"c",d:"конвенции + договор 1995",t:"Минская 1993 и Кишинёвская 2002, договор о правовой помощи"},
+ {n:"Армения",s:"c",d:"только конвенции"},
+ {n:"Беларусь",s:"c",d:"конвенции + союзные соглашения"},
+ {n:"Грузия",s:"c",d:"только конвенции",t:"практика 2026: выдачи подтверждены официально — июль, сентябрь, октябрь"},
+ {n:"Казахстан",s:"c",d:"только конвенции"},
+ {n:"Киргизия",s:"c",d:"конвенции + договор 1994"},
+ {n:"Молдова",s:"c",d:"конвенции + договор 1995"},
+ {n:"Таджикистан",s:"c",d:"только конвенции"},
+ {n:"Туркменистан",s:"c",d:"конвенции + передача осуждённых 1996"},
+ {n:"Узбекистан",s:"c",d:"только конвенции"},
+ // Только правовая помощь — 28
+ {n:"Кипр",s:"m",d:"1987"},
+ {n:"Сербия",s:"m",d:"1963"},
+ {n:"Черногория",s:"m",d:"1963"},
+ {n:"Хорватия",s:"m",d:"1963"},
+ {n:"Словения",s:"m",d:"1963"},
+ {n:"Босния и Герцеговина",s:"m",d:"1963"},
+ {n:"Северная Македония",s:"m",d:"1963"},
+ {n:"Греция",s:"m",d:"1982"},
+ {n:"Италия",s:"m",d:"1986"},
+ {n:"Чехия",s:"m",d:"1983"},
+ {n:"Словакия",s:"m",d:"1983"},
+ {n:"Венгрия",s:"m",d:"1959"},
+ {n:"Болгария",s:"m",d:"1976"},
+ {n:"Румыния",s:"m",d:"1958"},
+ {n:"Албания",s:"m",d:"1959"},
+ {n:"Польша",s:"m",d:"2002"},
+ {n:"Испания",s:"m",d:"1997"},
+ {n:"США",s:"m",d:"2002"},
+ {n:"Япония",s:"m",d:"2011"},
+ {n:"Республика Корея",s:"m",d:"2001"},
+ {n:"Монголия",s:"m",d:"2008"},
+ {n:"Вьетнам",s:"m",d:"2012"},
+ {n:"Иран",s:"m",d:"2000"},
+ {n:"Египет",s:"m",d:"2002"},
+ {n:"Тунис",s:"m",d:"1986"},
+ {n:"Куба",s:"m",d:""},
+ {n:"Латвия",s:"m",d:"",t:"только передача осуждённых"},
+ {n:"Литва",s:"m",d:"",t:"только передача осуждённых"},
+ // Договоров нет — 6
+ {n:"Израиль",s:"n",d:""},
+ {n:"Германия",s:"n",d:""},
+ {n:"Бельгия",s:"n",d:""},
+ {n:"Эстония",s:"n",d:""},
+ {n:"Малайзия",s:"n",d:""},
+ {n:"Сингапур",s:"n",d:""},
+];
+const LBL={f:"Договор в силе",p:"Подписан, не в силе",c:"Конвенция СНГ",m:"Правовая помощь",n:"Нет договора"};
+const BC={f:"b-f",p:"b-p",c:"b-c",m:"b-m",n:"b-n"};
+const COUNTS={f:DATA.filter(x=>x.s=="f").length,p:DATA.filter(x=>x.s=="p").length,c:DATA.filter(x=>x.s=="c").length,m:DATA.filter(x=>x.s=="m").length,n:DATA.filter(x=>x.s=="n").length};
+
+const chipsEl=document.getElementById("chips");
+const allChip=document.createElement("button");
+allChip.type="button";allChip.className="chip on";allChip.dataset.s="all";
+allChip.innerHTML=`<b>${DATA.length}</b> все страны`;
+chipsEl.appendChild(allChip);
+for(const s of ["f","p","c","m","n"]){
+  const b=document.createElement("button");
+  b.type="button";b.className="chip";b.dataset.s=s;
+  b.innerHTML=`<span class="dot ${s}"></span><b>${COUNTS[s]}</b> ${LBL[s].toLowerCase()}`;
+  chipsEl.appendChild(b);
+}
+
+let status="all";
+function render(){
+  const norm=s=>s.toLowerCase().replace(/ё/g,"е").replace(/й/g,"и");
+  const q=norm(document.getElementById("q").value.trim());
+  const rows=DATA.filter(x=>(status=="all"||x.s==status)&&(!q||norm(x.n).includes(q)));
+  const list=document.getElementById("list");
+  list.innerHTML=rows.map(x=>`<li>
+    <span class="cname">${x.n}</span>
+    <span><span class="badge ${BC[x.s]}">${LBL[x.s]}</span></span>
+    <span class="cdates">${x.d||"—"}</span>
+    ${x.t?`<span class="cnote">${x.t}</span>`:""}
+  </li>`).join("");
+  document.getElementById("empty").style.display=rows.length?"none":"block";
+  document.getElementById("count").innerHTML=rows.length?`Показано <b>${rows.length}</b> из ${DATA.length}`:"";
+}
+chipsEl.addEventListener("click",e=>{
+  const c=e.target.closest(".chip"); if(!c)return;
+  status=c.dataset.s;
+  chipsEl.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===c));
+  render();
+});
+document.getElementById("q").addEventListener("input",render);
+
+/* тема */
+const btn=document.getElementById("themeBtn");
+function setTheme(t){document.documentElement.dataset.theme=t;btn.textContent=t=="dark"?"☀":"☾";try{localStorage.setItem("vyd-theme",t)}catch(e){}}
+let saved=null; try{saved=localStorage.getItem("vyd-theme")}catch(e){}
+setTheme(saved||"light");
+btn.addEventListener("click",()=>setTheme(document.documentElement.dataset.theme=="dark"?"light":"dark"));
+
+render();
+</script>
+</body>
+</html>
